@@ -3,7 +3,7 @@
 
 <head>
     <meta charset=utf-8 />
-    <title>Lab 03 Starter Template</title>
+    <title>Three Central Cities</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
@@ -50,16 +50,16 @@
 
 <body>
     <header>
-        <h1>Map Title</h1>
-        <h2>Map Subtitle</h2>
+        <h1>Kentucky</h1>
+        <h2>Three Central Cities</h2>
     </header>
 
     <div id='map'></div>
 
     <footer>
-        <p>Map authored by YOUR NAME</p>
-        <p>Additional information about the data and map goes here.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl. Vestibulum commodo imperdiet lacus, sed facilisis erat placerat sit amet. Nulla consequat malesuada neque eget aliquet. Integer non convallis nisl, gravida ultrices ex. Fusce nec vestibulum elit. Sed elementum lectus ipsum, vulputate elementum ex laoreet a. Aenean eu ex varius, varius felis vitae, efficitur nulla. Quisque pretium laoreet ante, in sodales dui vehicula at. Mauris eu sem sapien.
+        <p>Map authored by Anna Lee Espinosa Bard, 2016.</p>
+       
+        <p>This map displays blue markers on three Kentucky Cities. Click each marker to display pop up with population data.
         </p>
     </footer>
 
@@ -84,6 +84,56 @@
         
         // BEGIN WRITING CODE FOR LAB 03 HERE
         
+		//declare variables and add values for city 1
+		
+		var city1Name = "Lexington"; //declare variable named city1Name and assign string value "Lexington"
+		console.log(city1Name);
+		
+		var city1Lat = 38.03;
+		
+		var city1Lon = -84.49;
+		
+		var city1Pop = 308428;
+		
+		var city1Capital = false;
+		
+		//declare variables and add values for city 2
+		
+		var city2Name = "Louisville";
+		
+		var city2Lat = 38.25;
+		
+		var city2Lon = -85.77;
+		
+		var city2Pop = 972546;
+		
+		var city2Capital = false;
+		
+		//declare variables and add values for city 3
+		
+		var city3Name = "Frankfort";
+		
+		var city3Lat = 38.1970;
+		
+		var city3Lon = -84.863;
+		
+		var city3Pop = 27453;
+		
+		var city3Capital = true;
+		
+		//declare totalPop variable and assign value using expression
+		var totalPop = city1Pop + city2Pop +city3Pop
+		console.log("The total population of these cities is:", totalPop);
+		
+		//declare variable averagePop and assign value using operator
+		var averagePop = totalPop/3;
+		console.log("The average population of these cities is: ", averagePop);
+		
+		//declare varible cities and assign an array literal
+		var cities = ["Lexington", "Louisville", "Frankfort"]
+		
+		//console log the last city in the array using bracket notation
+		console.log(cities[2]);
        
         
         // END WRITING CODE FOR LAB 03 HERE
@@ -99,27 +149,27 @@
         L.marker([city1Lat,city1Lon]).addTo(map)
             .bindPopup(city1Popup);
         
-//         CITY2 MARKER CODE HERE
-//        var city2Popup = "<b>"+city2Name+"</b><br>"
-//                        +"<b>population</b>: "+city2Pop;
-//        
-//        if(city2Capital == true) {
-//            city2Popup += "<br>Capital of the Commonwealth of Kentucky";   
-//        }
-//        
-//        L.marker([city2Lat,city2Lon]).addTo(map)
-//            .bindPopup(city2Popup);
+         //CITY2 MARKER CODE HERE
+        var city2Popup = "<b>"+city2Name+"</b><br>"
+                        +"<b>population</b>: "+city2Pop;
         
-//         CITY3 MARKER CODE HERE
-//        var city3Popup = "<b>"+city3Name+"</b><br>"
-//                        +"<b>population</b>: "+city3Pop;
-//        
-//        if(city3Capital == true) {
-//            city3Popup += "<br>Capital of the Commonwealth of Kentucky";   
-//        }
-//        
-//        L.marker([city3Lat,city3Lon]).addTo(map)
-//            .bindPopup(city3Popup);
+        if(city2Capital == true) {
+            city2Popup += "<br>Capital of the Commonwealth of Kentucky";   
+        }
+        
+        L.marker([city2Lat,city2Lon]).addTo(map)
+            .bindPopup(city2Popup);
+        
+         //CITY3 MARKER CODE HERE
+        var city3Popup = "<b>"+city3Name+"</b><br>"
+                        +"<b>population</b>: "+city3Pop;
+        
+        if(city3Capital == true) {
+            city3Popup += "<br>Capital of the Commonwealth of Kentucky";   
+        }
+        
+        L.marker([city3Lat,city3Lon]).addTo(map)
+            .bindPopup(city3Popup);
           
     </script>
     
