@@ -2,9 +2,7 @@
 <html>
 
 <head>
-	<meta charset=utf-8 />
-	<title>MAP672 Module 2 Template</title>
-	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+	
 	<meta charset=utf-8 />
 	<title>MAP672 Module 2 Template</title>
 	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
@@ -12,12 +10,12 @@
 	<style>
 		body {
 			background: #f0eceb;
-			background-blend-mode: color-dodge;
 			color: #729f98;
 			font-family: sans-serif;
+			
 		}
-		
 		/*h1 style changes; font enlarged and changed to uppercase; color change; padding adjustments for placement */
+		
 		h1 {
 			font-size: 3em;
 			color: #49412c;
@@ -26,8 +24,8 @@
 			padding-left: 25px;
 			padding-top: 20px;
 		}
-		
 		/*h2 style changes; font enlarged padding adjustments for placement */
+		
 		h2 {
 			font-size: 1.8em;
 			padding-bottom: 10px;
@@ -56,21 +54,26 @@
 			margin-left: 25px;
 			max-width: 800px;
 			border: 20px;
+			
 		}
-		
 		/*	select unique id attribute 'box' and style*/
+		
 		#box {
 			width: 200px;
 			height: 200px;
-			background: #3e6b93;
 			margin: 25px;
+			
+						
+
 		}
-		
 		/* select class 'circle' to style the three circle elements and style*/
+		
 		.circle {
-			width: 100px;
-			height: 100px;
-			background: #bf6864;
+			width: 773px;
+			height: 960px;
+			background-image: url('https://scontent-ord1-1.xx.fbcdn.net/hphotos-xtf1/t31.0-8/s960x960/12657965_10153944807899216_771313420022978599_o.jpg');
+			background-color: red;
+			background-blend-mode: screen;
 			border-radius: 50%;
 			display: inline-block;
 			margin: 0 25px;
@@ -90,7 +93,7 @@
 		<img src="images/world2.png" alt="world map">
 	</div>
 
-<!--create paragraph element using tags; employ anchor element to create hyperlink with 'a' tags and 'href' attribute-->
+	<!--create paragraph element using tags; employ anchor element to create hyperlink with 'a' tags and 'href' attribute-->
 	<p>paragraph with link: <a href="https://en.wikipedia.org/wiki/Lorem_ipsum">Lorem ipsum</a> dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl.</p>
 
 	<ul>
@@ -104,13 +107,14 @@
 		</li>
 	</ul>
 
-	<!--create division element with unique identifier 'box' using id attribute	-->
-	<div id="box"></div>
 	
+
 	<!--create division element with class attriubte 'circle'-->
 	<div class="circle"></div>
 	<div class="circle"></div>
-	<div class="circle"></div>
+	
+	<!--create division element with unique identifier 'box' using id attribute	-->
+	<div id="box"></div>
 
 	<script>
 		// JavaScript code goes here
@@ -124,11 +128,11 @@
 		for (var i = 0; i <= elements.length - 1; i++) {
 			elements[i].style['border-radius'] = '20%';
 
-		//select 'box' division and attach event listener; width of 'box' div changes width when clicked
+			//select 'box' division and attach event listener; width of 'box' div changes width when clicked
 			box.addEventListener('click', function () {
 				this.style.width = '400px';
 			});
-			
+
 			var newListItem = document.createElement('li');
 			newListItem.innerHTML = "list item 4";
 			document.querySelector('ul').appendChild(newListItem);
