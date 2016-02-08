@@ -2,173 +2,121 @@
 <html>
 
 <head>
-	<meta charset=utf-8 />
-	<title>Lab 04 Starter Template</title>
-	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <meta charset=utf-8 />
+    <title>Lab 04 Starter Template</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
-	<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 
-	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
-	<style>
-		/*add style for 'custom' class */
-		.custom .leaflet-popup-tip,
-		.custom .leaflet-popup-content-wrapper {
-			background: #1a4780;
-			color: #ffffff;
-			font-size: 1.8em;
-		}
-		a {
-			color: white;
-		}
-		
-		a:hover {
-			color:yellow;
-		}
-		body {
-			margin: 0;
-			padding: 0;
-			background: #0b1f44;
-			font-family: Lato, sans-serif;
-			color: #0D0000;
-			font-size: 1.2em;
-		}
-		
-		header {
-			padding: 6px 10%;
-		}
-		
-		h1 {
-			display: inline-block;
-			margin-right: 20px;
-			color: white;
-		}
-		
-		h2 {
-			display: inline-block;
-			color: white;
-		}
-		
-		#map {
-			width: 80%;
-			height: 540px;
-			margin: 10px auto;
-		}
-		
-		footer {
-			padding: 6px 10%;
-			width: 80%;
-		}
-		
-		p {
-			font-size: 1em;
-			color: white;
-		}
-		/* Additional style rules go here! */
-	</style>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: whitesmoke;
+            font-family: Lato, sans-serif;
+            color: #0D0000;
+        }
+        header {
+            padding: 6px 10%;
+        }
+        h1 {
+            display: inline-block;
+            margin-right: 20px;
+            color: #001323;
+        }
+        h2 {
+            display: inline-block;
+            color: #001323;
+        }
+        #map {
+            width: 80%;
+            height: 540px;
+            margin: 10px auto;
+        }
+        footer {
+            padding: 6px 10%;
+            width: 80%;
+        }
+        p {
+            font-size: 1em;
+            color: #001323;
+        }
+        /* Additional style rules go here! */
+
+    </style>
 </head>
 
 <body>
-	<header>
-		<h1>Mexico's Largest Cities</h1>
-		<h2>Home of Boss Iguanas</h2>
-	</header>
+    <header>
+        <h1>Mexico's Largest Cities</h1>
+        <h2>Home of Boss Iguanas</h2>
+    </header>
 
-	<div id='map'></div>
+    <div id='map'></div>
 
-	<footer>
-		<p>Map authored by Anna Lee Espinosa Bard</p>
-		
-		<p>Interactive web map highlighting the three largest cities in Mexico and a strange iguana image. Custom pop up created with the help of <a href='http://joshuafrazier.info/leaflet-basics/'>Joshua Frazier and Maptime Toronto</a>. Image overlay and custom marker developed through exploring <a href='http://leafletjs.com/reference.html'>Leaflet's open-source library.</a>
-		</p>
-	</footer>
+    <footer>
+        <p>Map authored by Anna Lee Espinosa Bard</p>
+        <p>Additional information about the data and map goes here.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl. Vestibulum commodo imperdiet lacus, sed facilisis erat placerat sit amet. Nulla consequat malesuada neque eget aliquet. Integer non convallis nisl, gravida ultrices ex. Fusce nec vestibulum elit. Sed elementum lectus ipsum, vulputate elementum ex laoreet a. Aenean eu ex varius, varius felis vitae, efficitur nulla. Quisque pretium laoreet ante, in sodales dui vehicula at. Mauris eu sem sapien.
+        </p>
+    </footer>
 
-	<script>
-		var map;
-		var targetDiv = 'map';
+    <script>
+        var map;
+        var targetDiv = 'map';
 
-		//center map to Mexico
-		var options = {
-			center: [23.43, -99.13],
-			zoom: 5
-		}
-
-		//change basemap
-		map = L.map(targetDiv, options);
-
-		var tiles = L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.{ext}', {
-	type: 'sat',
-	ext: 'jpg',
-	attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency',
-	subdomains: '1234'
+        var options = {
+            center: [23.43, -99.13],
+            zoom: 5
+        }
+        map = L.map(targetDiv, options);
+        var tiles = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
 });
-		map.addLayer(tiles);
-
-		// begin writing/editing Lab 04 code here
-
-		//create variable named cities and store three string type names of cities as array
+        map.addLayer(tiles);
+        
+        // begin writing/editing Lab 04 code here
+        
 		var cities = ['Mexico City', 'Guadalajara', 'Monterrey'];
-
-		//create 2D arary containing the lat and long of each city in 'cities' array
+		
 		var cityCoords = [
-			[19.43, -99.13],
+			[19.43,-99.13],
 			[20.67, -103.35],
 			[25.67, -100.3]
 		];
-
-		//create cityPops variable and array with city populations
-		var cityPops = [1998200, 4365000, 2647000];
-
-		//create cityCapital variable and array with boolean values corresponding to each city 
-		var cityCapital = [true, false, false];
-
-		//complete for loop to execute loop cycles through each city and it's elements
-		for (var i = 0; i < cities.length; i++) {
-
-			var customPopup = "<b>" + cities[i] + "</b><br>" + "<b>Population</b>: " + cityPops[i];
-
-			if (cityCapital[i] == true) {
-
-				customPopup += "<br>Capital city of Mexico!";
-
-				//add else statement to provide text in pop up for the non-capital cities
-			} else {
-				customPopup += "<br> Not the Capital city of Mexico";
-			};
-
-			//console.log(cities[i]);
-			//console.log(cityCoords[i][1]);
-
-
-			//create flagIcon variable and pass options
+		
 		var flagIcon = L.icon({
 			iconUrl: 'http://icons.iconarchive.com/icons/custom-icon-design/iphone-map-flag/256/Mexico-icon.png',
-			iconSize: [100, 70], //set fixed size of icons
-			popupAnchor: [0, -30] //set popup to launch from top of marker increasing marker visibility
+			iconSize:     [100, 70],
+			popupAnchor: [0,-30]//sets popup to launch from top of marker
 		});
-			
-			//create 'customOptions variable and specifies options for custom popup
-		var customOptions = {
-			'maxWidth': '500', //enlarge popup default width
-			'className': 'custom' //add class to apply css
-		}
-			
-			//complete
-		L.marker(cityCoords[i], {
-			icon: flagIcon
-			}).addTo(map)
-			.bindPopup(customPopup, customOptions);
-		}
-		// create variable 'image' and specify image url, size, and position
-		var imageUrl = 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSVMTo48G1fF8-e_aaiCIUsjaKoZgVxJrO6yO3Hh2UALq8zPPUWww',
-			imageBounds = [[22, -120], [15, -110]];//attaches image to a particular area of map
 		
-		//create image overlay custom layer, pass options, and add to map
-		L.imageOverlay(imageUrl, imageBounds).addTo(map);
+		
+		var cityPops = [1998200, 4365000, 2647000];
+		var cityCapital =[true, false,false];
+        for(var i = 0; i< cities.length; i++) {
+            
+            var popup = "<b>"+cities[i]+"</b><br>"
+                            +"<b>population</b>: "+cityPops[i];
 
-
-		// end writing/editing Lab 04 code here
-	</script>
-
+            if(cityCapital[i] == true) {
+               
+                popup += "<br>Capital city of Mexico."; 
+                
+            } 
+            
+			//console.log(cityCoords[i][1]);
+			
+            L.marker(cityCoords[i],{icon: flagIcon}).addTo(map)
+                .bindPopup(popup);
+        }
+//        
+        // end writing/editing Lab 04 code here
+        
+          
+    </script>
+    
 </body>
