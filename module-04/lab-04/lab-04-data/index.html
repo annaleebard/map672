@@ -3,7 +3,7 @@
 
 <head>
     <meta charset=utf-8 />
-	<title>Lab 04 Starter Template</title>
+	<title>Mexico's Largest Cities</title>
 	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
 	<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
@@ -12,20 +12,6 @@
 	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
 	<style>
-		/*add style for 'custom' class */
-		.custom .leaflet-popup-tip,
-		.custom .leaflet-popup-content-wrapper {
-			background: #1a4780;
-			color: #ffffff;
-			font-size: 1.8em;
-		}
-		a {
-			color: white;
-		}
-		
-		a:hover {
-			color:yellow;
-		}
 		body {
 			margin: 0;
 			padding: 0;
@@ -65,7 +51,20 @@
 			font-size: 1em;
 			color: white;
 		}
-		/* Additional style rules go here! */
+		/*add style for 'custom' class */
+		.custom .leaflet-popup-tip,
+		.custom .leaflet-popup-content-wrapper {
+			background: #1a4780;
+			color: #ffffff;
+			font-size: 1.8em;
+		}
+		a {
+			color: white;
+		}
+		
+		a:hover {
+			color:yellow;
+		}
 	</style>
 </head>
 
@@ -98,14 +97,12 @@
 		map = L.map(targetDiv, options);
 
 		var tiles = L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.{ext}', {
-	type: 'sat',
-	ext: 'jpg',
-	attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency',
-	subdomains: '1234'
-});
+            type: 'sat',
+            ext: 'jpg',
+            attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency',
+            subdomains: '1234'
+        });
        map.addLayer(tiles);
-
-		// begin writing/editing Lab 04 code here
 
 		//create variable named cities and store three string type names of cities as array
 		var cities = ['Mexico City', 'Guadalajara', 'Monterrey'];
@@ -128,11 +125,26 @@
 
 		//create cityCapital variable and array with boolean values corresponding to each city 
 		var cityCapital = [true, false, false];
+        
+        var customOptions = {  // don't need to define this multiple times in the for loop
+            'maxWidth': '500', //enlarge popup default width
+            'className': 'custom' //add class to apply css
+        }
+        
+        // create variable 'image' and specify image url, size, and position
+		var imageUrl = 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSVMTo48G1fF8-e_aaiCIUsjaKoZgVxJrO6yO3Hh2UALq8zPPUWww',
+			imageBounds = [[22, -120], [15, -110]];//attaches image to a particular area of map
+		
+		//create image overlay custom layer, pass options, and add to map
+		L.imageOverlay(imageUrl, imageBounds).addTo(map);
+        
+        var customPopup;  // not a huge performance thing, but re-declaring within the for loop
+                          // can tax memory more than simply reassigning a value
 
 		//complete for loop to execute loop cycles through each city and it's elements
 		for (var i = 0; i < cities.length; i++) {
 
-			var customPopup = "<b>" + cities[i] + "</b><br>" + "<b>Population</b>: " + cityPops[i];
+			customPopup = "<b>" + cities[i] + "</b><br>" + "<b>Population</b>: " + cityPops[i];
 
 			if (cityCapital[i] == true) {
 
@@ -141,38 +153,16 @@
 				//add else statement to provide text in pop up for the non-capital cities
 			} else {
 				customPopup += "<br> Not the Capital city of Mexico";
-			};
+			} // if/else blocks don't need to end with semicolons
 
-			//console.log(cities[i]);
-			//console.log(cityCoords[i][1]);
-var customOptions = {
-			'maxWidth': '500', //enlarge popup default width
-			'className': 'custom' //add class to apply css
-		}
 
-			//create flagIcon variable and pass options
+            //create flagIcon variable and pass options
            L.marker(cityCoords[i], {
-			icon: flagIcon
-			}).addTo(map)
+               icon: flagIcon
+           }).addTo(map)
 			.bindPopup(customPopup, customOptions);
         }
-//        
-		//create 'customOptions variable and specifies options for custom popup
-		var customOptions = {
-			'maxWidth': '500', //enlarge popup default width
-			'className': 'custom' //add class to apply css
-		}
-		// create variable 'image' and specify image url, size, and position
-		var imageUrl = 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSVMTo48G1fF8-e_aaiCIUsjaKoZgVxJrO6yO3Hh2UALq8zPPUWww',
-			imageBounds = [[22, -120], [15, -110]];//attaches image to a particular area of map
-		
-		//create image overlay custom layer, pass options, and add to map
-		L.imageOverlay(imageUrl, imageBounds).addTo(map);
 
-
-		// end writing/editing Lab 04 code here
-        // end writing/editing Lab 04 code here
-        
           
     </script>
     
