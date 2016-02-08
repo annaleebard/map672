@@ -65,7 +65,7 @@
 			font-size: 1em;
 			color: white;
 		}
-		/* Additional style rules go here! */
+		
 	</style>
 </head>
 
@@ -102,7 +102,7 @@
 	subdomains: '1234'
 });
        map.addLayer(tiles);
-		// begin writing/editing Lab 04 code here
+		
 		//create variable named cities and store three string type names of cities as array
 		var cities = ['Mexico City', 'Guadalajara', 'Monterrey'];
 		//create 2D arary containing the lat and long of each city in 'cities' array
@@ -132,8 +132,7 @@
 			} else {
 				customPopup += "<br> Not the Capital city of Mexico";
 			};
-			//console.log(cities[i]);
-			//console.log(cityCoords[i][1]);
+		
 var customOptions = {
 			'maxWidth': '500', //enlarge popup default width
 			'className': 'custom' //add class to apply css
@@ -144,12 +143,13 @@ var customOptions = {
 			}).addTo(map)
 			.bindPopup(customPopup, customOptions);
         }
-//        
+       
 		//create 'customOptions variable and specifies options for custom popup
 		var customOptions = {
 			'maxWidth': '500', //enlarge popup default width
 			'className': 'custom' //add class to apply css
 		}
+		
 		// create variable 'image' and specify image url, size, and position
 		var imageUrl = 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSVMTo48G1fF8-e_aaiCIUsjaKoZgVxJrO6yO3Hh2UALq8zPPUWww',
 			imageBounds = [[22, -120], [15, -110]];//attaches image to a particular area of map
