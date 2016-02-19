@@ -64,7 +64,7 @@
 
 	<footer>
 		<p>Map authored by <a href="http://annaleebard.github.io/">Anna Lee Espinosa Bard</a></p>
-		<p>I love beer. This map requests the user inputs the area of three cities. The result is a smiple map with three popups, each containing the city name and brewery density of the city. Cheers!</p>
+		<p>I love beer. This map requests the user inputs the area of three cities. The result is a map with three popups, each containing the city name and brewery density of the city. Cheers!</p>
 		
 	</footer>
 
@@ -81,6 +81,7 @@
 			subdomains: 'abcd',
 			maxZoom: 19
 		});
+		
 		map.addLayer(tiles);
 
 		var lexArea = Number(prompt("Enter data", "Enter the area of Lexington in square miles"));
@@ -128,10 +129,9 @@
 			}
 		}
 
-
 		function calcPopDensity(cityBrews, cityAreas, units, cityPops) {
 
-			if (units === "miles") {
+			if (units === "km") {
 				density = cityBrews /(cityAreas * 2.58999)
 			} else {
 				density = cityBrews / cityAreas
@@ -139,8 +139,6 @@
 			return density
 
 		}
-		
-		
 		
 	</script>
 
