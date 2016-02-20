@@ -132,11 +132,10 @@
 		function calcPopDensity(cityBrews, cityAreas, units, cityPops) {
 
 			if (units === "km") {
-				density = cityBrews /(cityAreas * 2.58999)
-			} else {
-				density = cityBrews / cityAreas
+				return cityBrews /(cityAreas * 2.58999);
 			}
-			return density
+		    
+            return cityBrews / cityAreas;
 
 		}
 		
