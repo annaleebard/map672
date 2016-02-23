@@ -85,12 +85,13 @@
 		map.addLayer(tiles);
 
 		var lexArea = Number(prompt("Enter data", "Enter the area of Lexington in square miles"));
-
-
 		var louArea = Number(prompt("Enter data", "Enter the area of Louisville in square miles"));
-
-
 		var cinArea = Number(prompt("Enter data", "Enter the area of Cincinnati in square miles"));
+
+//Number(prompt("Enter data", "Enter the area of Lexington in square miles"));
+//Number(prompt("Enter data", "Enter the area of Louisville in square miles"));
+//Number(prompt("Enter data", "Enter the area of Cincinnati in square miles"));
+		
 	
 		prepareData(lexArea, louArea, cinArea);
 
@@ -115,8 +116,8 @@
 		}
 
 		function mapCities(cities, cityCoords, cityBrews, cityAreas) {
-
-			var units = prompt('Units for calculating density', "miles");
+			
+				var units = prompt('Units for calculating density', "enter 'miles' or 'km'");
 
 			for (var i = 0; i < cities.length; i++) {
 
@@ -137,6 +138,7 @@
 				density = cityBrews / cityAreas
 			}
 			return density
+			
 
 		}
 		
