@@ -2,18 +2,239 @@
 <html>
 
 <head>
-    <meta charset=utf-8 />
-    <title>Lesson 06 Starter Template</title>
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+	<meta charset=utf-8 />
+	<title>Lesson 06 Starter Template</title>
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 </head>
 
 <body>
 
 
-<script>
-/* JavaScript code goes here! */
+	<script>
+		//	var myObject = {};  // declare and define an empty object
+		//		console.log(myObject); 
+		//	
+		//	var iguana = {
+		//		name: "Jack",
+		//		weight: 4.2,
+		//		age: 8,
+		//		eyes: "dreamy",
+		//		questForWorldDomination: true,	
+		//		toolkit: { 
+		//			conquestFlag:"red",
+		//			surrenderFlag: "white",
+		//			food: true,
+		//			music: "Tom Petty",
+		//			coolSunGlasses: 8
+		//			}
+		//	}
+		//	
+		//	var iguana = { 
+		//    name: "Jack", 
+		//    weight: 4.2, // assume kilograms
+		//    age: 8, 
+		//    eyes: "dreamy",
+		//    questForWorldDomination: true  
+		//}
+		//console.log(iguana.name); // output "Jack"
+		//console.log(iguana.weight); // output 4.2
+		//console.log(iguana);
+		//
+		//	var iguana = { 
+		//    questForWorldDomination: true,  
+		//    age: 8, 
+		//    eyes: "dreamy",
+		//    name: "Jack", 
+		//    weight: 4.2,
+		//    toolkit: {
+		//        conquestFlag: "red",
+		//        surrenderFlag: "white",
+		//        food: true,
+		//        music: "Anthrax",
+		//        coolSunGlasses: 8
+		//    }
+		//}
+		//console.log(iguana.toolkit.music); // will output "Anthrax"
+		//	
+		//	var iguana = { 
+		//		name: "Jack", 
+		//		weight: 4.2, // assume kilograms
+		//		age: 8, 
+		//		eyes: "dreamy",
+		//		questForWorldDomination: true 
+		//	}
+		//	console.log(iguana["name"]); // output "Jack"
+		//	console.log(iguana["weight"]); // output 4.2	
+		//	
+		//	var iguana = { 
+		//    questForWorldDomination: true,  
+		//    age: 8, 
+		//    eyes: "dreamy",
+		//    name: "Jack", 
+		//    weight: 4.2,
+		//    toolkit: {
+		//        conquestFlag: "red",
+		//        surrenderFlag: "white",
+		//        food: true,
+		//        music: "Anthrax",
+		//        coolSunGlasses: 8
+		//    }
+		//}
+		//console.log(iguana["toolkit"]["music"]); // will output Anthrax:
+		//console.log(iguana["toolkit"].coolSunGlasses); // will output 8
+		//	
+		//	var iguana = { 
+		//		name: "Jack", 
+		//		weight: 4.2, // assume kilograms
+		//		age: 8, 
+		//		eyes: "dreamy",
+		//		questForWorldDomination: true 
+		//	}
+		//	console.log(iguana.weight); // output 4.2
+		//	console.log(iguana.age); // output 8
+		//
+		//	iguana.weight = 5.2;
+		//	iguana.age = 9;
+		//
+		//	console.log(iguana.weight); // output 5.2
+		//	console.log(iguana.age); // output 9
+		//	
+		//	var iguana = { 
+		//		name: "Jack", 
+		//		weight: 4.2, // assume kilograms
+		//		age: 8, 
+		//		eyes: "dreamy",
+		//		questForWorldDomination: true 
+		//	}
+		//	console.log(iguana.weight); // output 4.2
+		//	console.log(iguana.age); // output 8
+		//
+		//	iguana["weight"] = 6.1;
+		//	iguana["age"] = 10;
+		//
+		//	console.log(iguana.weight); // output 6.1
+		//	console.log(iguana.age); // output 10
 
 
-</script>
-    
+		//	var iguana = { 
+		//		name: "Jack", 
+		//		weight: 4.2, // assume kilograms
+		//		age: 8, 
+		//		eyes: "dreamy",
+		//		questForWorldDomination: true 
+		//	}
+		//	console.log(iguana); // output entire object for inspection
+		//
+		//	iguana.color = "green";
+		//	iguana.madGenius = true;
+		//
+		//	console.log(iguana); // inspect the Console to see that object has the additional properties
+		//	
+		//	var iguana = { 
+		//    name: "Jack", 
+		//    weight: 4.2, // assume kilograms
+		//    age: 8, 
+		//    eyes: "dreamy",
+		//    questForWorldDomination: true 
+		//}
+		//console.log(iguana); // output entire object for inspection
+		//
+		//iguana["color"] = "purple";
+		//iguana["unlovedAsBaby"] = true; // hence his need to compensate
+
+		//console.log(iguana); // object with additional properties
+
+		//	var iguana = { 
+		//    name: "Jack", 
+		//    weight: 4.2, // assume kilograms
+		//	length: 1.5,
+		//    age: 8, 
+		//    eyes: "dreamy",
+		//    questForWorldDomination: true,
+		//	greeting: function(message) {
+		//		console.log(message);
+		//	},
+		//	calculateBMI: function(w,l) {
+		//        return w / (l*l); // now you know how to calculate BMI, BONUS!
+		//    }
+		//		
+		//}
+		//	var result = iguana.calculateBMI(iguana.weight, iguana.length);
+		//    console.log(result); // output is still 1.87
+		//	
+		//	var result = iguana.calculateBMI(4.2,1.5);
+		//		console.log(result); // output is 1.87 which is really underweight,
+		//	
+
+		//	iguana.greeting("Hey I love Tom Petty");
+		//	iguana.greeting("I shred world domination.");
+		////
+		//	for (var key in iguana) {
+		//		console.log(key, iguana[key]);
+		//	}
+		//	
+		//	var iguana = {
+		//		name: "Jack",
+		//		weight: 4.2,
+		//		length: 1.5,
+		//		age:8,
+		//		eyes: "dreamy",
+		//		questForWorlddomination: true,
+		//		calculateBMI: function() {
+		//			var w= this.weight;
+		//			var l = this.length;
+		//			return w/(l*l);
+		//		}
+		//	}
+		//	
+		//	var result = iguana.calculateBMI();
+		//	console.log(result);
+
+		var iguana = {
+			name: "Jack",
+			weight: 4.2,
+			age: 8,
+			eyes: "dreamy",
+			questForWorldDomination: true,
+			invasionPlans: function (inData) {
+				// iguana can do something with data here
+				console.log(inData);
+			}
+		}
+
+		var lexData = {
+			lat: 38.23,
+			lon: -89.21,
+			name: "Lexington",
+			pop: 821325
+
+		}
+
+		iguana.invasionPlans(lexData)
+
+		var cityName = "Lexington";
+		console.log(cityName);
+
+		var cityNameWithState = cityName.concat(", KY"); // concat method concatenates two Strings
+		console.log(cityNameWithState); // output is "Lexington, KY"
+
+		var cityName = "Lexington";
+		var cityNameCaps = cityName.toUpperCase();
+		console.log(cityNameCaps); //output is LEXINGTON
+
+		var cityName = "Lexington";
+		console.log(cityName.charAt(5));
+
+
+		console.log(cityName.indexOf("x")); // returns the index (2) of the
+		// first character found of "x"
+
+		var cities = ["Lexington", "Bowling Green"];
+		console.log(cities); // output is ["Lexington", "Bowling Green"]
+		cities.push("Frankfort");
+		console.log(cities); // output is ["Lexington", "Bowling Green", "Frankfort"]
+		cities.pop();
+		console.log(cities); // output is ["Lexington", "Bowling Green"]
+	</script>
+
 </body>
