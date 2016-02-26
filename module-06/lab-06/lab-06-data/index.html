@@ -67,17 +67,15 @@
 
 <body>
 	<header>
-		<h1>Map Title</h1>
-		<h2>Map Subtitle</h2>
+		<h1>Three Cities</h1>
+		<h2>in Three States</h2>
 	</header>
 
 	<div id='map'></div>
 
 	<footer>
 		<p>Map authored by Anna Lee Espinosa Bard</p>
-		<p>Additional information about the data and map goes here.</p>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet.
-		</p>
+		<p>This map demonstrates the power of JavaScript objects and methods. </p>
 	</footer>
 
 	<script>
@@ -136,13 +134,13 @@
 		function buildPopup(name, pop, state){
 			
 			if(state == "OH"){
-				var colorclass = "ohio-red";	
+				var colorClass = "ohio-red";	
 			}
 			else if(state == "KY"){
 				var colorClass = "kentucky-blue";
 			}
 			else {
-				var colorclass= "indy-green";
+				var colorClass= "indy-green";
 			}
 			return "<div class='"+colorClass+"'><b>"+name+"</b><br>"+
     "<b>Population</b>: "+pop.toLocaleString()+"<div>";
