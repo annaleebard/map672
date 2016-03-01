@@ -2,72 +2,242 @@
 <html>
 
 <head>
-    <meta charset=utf-8 />
-    <title>Lesson 07 Template</title>
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+	<meta charset=utf-8 />
+	<title>Lesson 07 Template</title>
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
-    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+	<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: whitesmoke;
-            font-family: Lato, sans-serif;
-            color: #0D0000;
-        }
-        header {
-            padding: 6px 10%;
-        }
-        h1 {
-            display: inline-block;
-            margin-right: 20px;
-            color: #001323;
-        }
-        h2 {
-            display: inline-block;
-            color: #001323;
-        }
-        #map {
-            width: 80%;
-            height: 540px;
-            margin: 10px auto;
-        }
-        footer {
-            padding: 6px 10%;
-            width: 80%;
-        }
-        p {
-            font-size: 1em;
-            color: #001323;
-        }
-    </style>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background: whitesmoke;
+			font-family: Lato, sans-serif;
+			color: #0D0000;
+		}
+		
+		header {
+			padding: 6px 10%;
+		}
+		
+		h1 {
+			display: inline-block;
+			margin-right: 20px;
+			color: #001323;
+		}
+		
+		h2 {
+			display: inline-block;
+			color: #001323;
+		}
+		
+		#map {
+			width: 80%;
+			height: 540px;
+			margin: 10px auto;
+		}
+		
+		footer {
+			padding: 6px 10%;
+			width: 80%;
+		}
+		
+		p {
+			font-size: 1em;
+			color: #001323;
+		}
+	</style>
 </head>
 
 <body>
-    <header>
-        <h1>Map Title</h1>
-        <h2>Map Subtitle</h2>
-    </header>
+	<header>
+		<h1>Leaflet</h1>
+		<h2>Learnings</h2>
+	</header>
 
-    <div id='map'></div>
+	<div id='map'></div>
 
-    <footer>
-        <p>Map authored by YOUR NAME</p>
-        <p>Additional information about the data and map goes here.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl.
-        </p>
-    </footer>
+	<footer>
+		<p>Map authored by Anna Lee Espinosa Bard</p>
+		<p>Additional information about the data and map goes here.</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl.
+		</p>
+	</footer>
 
-    <script>
+	<script>
+		var mapCenter = L.latLng(38.0489, -96.5025);
 
-      // build your Leaflet map here!
-                  
-    </script>
-    
+		//		var map = L.map('map', {
+		//			center: mapCenter,
+		//			zoom: 2,
+		//			minZoom: 2,
+		//			maxZoom: 7
+		//		});
+
+		var options = {
+			center: [40.7718, -111.9124],
+			zoom: 12, // initial zoom level
+			minZoom: 4,
+
+			//			dragging: false,
+			//			zoomControl:false
+
+		}
+		var map = L.map('map', options);
+
+		var OpenTopoMap = L.tileLayer('http://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+			maxZoom: 16,
+			attribution: 'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+		});
+
+		map.addLayer(OpenTopoMap);
+
+		var iguanaRestaurants = L.layerGroup(); //Creates variable of our restaurant layers and assigns each restuarant layer to to a layerGroup
+		
+		var redIguanaOptions = { //stores options properties as a variable to style specific layer
+			color: 'red', // changes stroke color
+			fillColor: 'red' //changes fill color
+		};
+		var blueIguanaOptions = { //stores options properties as a variable to style specific layer
+			color: '#03f', // changes stroke color
+			fillColor: '#03f' //changes fill color
+		};
+		 /*the IguanaOptions variables above are accessed to initially style circles and to restore style after mouseover event*/
+		
+		var redIguana = L.circle([40.7718, -111.9124], 400, redIguanaOptions); 
+			// creates redIguana variable 
+			//passes LatLng, circle radius, and additional options (stored as redIguanaOptions) as arguments within the circle method
+		redIguana.color = 'red'; //use dot notation to create color property and assign unique identifier as a property of each circle (allows us to determine which circle is which when looping)
+		redIguana.addTo(iguanaRestaurants); //use addTo method to add redIguana to add layer to the layerGroup
+		
+		
+		
+		var blueIguana = L.circle([40.7657, -111.8930], 300, blueIguanaOptions);
+			// creates redIguana variable 
+			//passes LatLng, circle radius, and additional options (stored as redIguanaOptions) as arguments within the circle method
+		blueIguana.color = 'blue'; //use dot notation to create color property and assign unique identifier as a property of each circle (allows us to determine which circle is which when looping)
+		blueIguana.addTo(iguanaRestaurants);//use addTo method to add blueIguana to add layer to the layerGroup
+		
+		iguanaRestaurants.addTo(map); //addTo method used to add the layerGroup 'iguanaRestaurants' to the map
+
+		iguanaRestaurants.eachLayer(function (layer) { //use eachLayer method to interate through layerGroup
+			layer.on('mouseover', function (p) {
+				p.target.setStyle({				 //add mouseover event to circles and set stroke and fill color yellow when moused over
+					color: 'yellow',
+					fillColor: 'yellow'
+				});
+			});
+			
+			layer.on('mouseout', function (e) {//add mouseover event to circles and reset stroke and fill color to origional layer style at mouseout
+				if (e.target.color == 'red') { //use conditional logic in looping structure to determine which style to apply
+					e.target.setStyle(redIguanaOptions);
+				} else if (e.target.color == 'blue') {
+					e.target.setStyle(blueIguanaOptions);
+				}
+			});
+		});
+
+		//		var iguanaRestaurants = L.layerGroup();
+		//		
+		//        var redIguana = L.circle([42.7718,-111.9124], 4000);
+		//        redIguana.addTo(iguanaRestaurants);
+		//		
+		//        var blueIguana = L.circle([40.7657, -111.8930], 30000);
+		//        blueIguana.addTo(iguanaRestaurants);
+		//		
+		//        iguanaRestaurants.addTo(map);
+		//		
+		//		iguanaRestaurants.eachLayer(function(layer) {
+		//			layer.on('mouseover', function(e) {
+		//				e.target.setStyle({
+		//					color: 'yellow',
+		//					fillColor: 'yellow'
+		//				});
+		//			});
+		//		});
+		//		
+		//		iguanaRestaurants.eachLayer(function(layer) {
+		//    layer.on('mouseover', function(e) {
+		//        e.target.setStyle({
+		//            color: 'yellow',
+		//            fillColor: 'yellow'
+		//        });
+		//    });
+		//    layer.on('mouseout', function(e) {
+		//        e.target.setStyle({
+		//            color: '#03f',
+		//            fillColor: '#03f'
+		//        });
+		//    });
+		//});
+		//		L.marker([38.0297, -84.4947]).addTo(map); // places a marker on Lexington
+		//
+		//		var redIguanaLocation = L.latLng(40.7718, -111.9124);
+		//		var redIguanaCircle = L.circle(redIguanaLocation, 40000, {
+		//			color: "red",
+		//			fillColor: "red"
+		//		});
+		//		redIguanaCircle.addTo(map);
+		//
+		//
+		//		redIguanaCircle.setStyle({
+		//			color: "#e33215",
+		//			weight: 15,
+		//			fillColor: "#e31",
+		//			fillOpacity: 1
+		//		});
+		//
+		//		var redIguanaLocation = L.latLng(40.7718, -111.9124);
+		//		var redIguanaCircle = L.circle();
+		//		redIguanaCircle.setLatLng(redIguanaLocation);
+		//		redIguanaCircle.setRadius(9900);
+		//		redIguanaCircle.addTo(map);
+		//		
+
+		//		var redIguanaMarker = L.marker(redIguanaLocation, {
+		//			draggable: true
+		//		});
+		//
+		//		redIguanaMarker.addTo(map);
+		//
+		//		redIguanaMarker.on('drag', function (e) {
+		//			console.log(e.target.getLatLng());
+		//		});
+		//
+		//		redIguanaMarker.bindPopup("Best Mexican food");
+		//
+		//	L.marker([40.21,-88.154]).addTo(map).bindPopup("popup");
+		//		
+		//
+		//		map.on('click', function(z) {
+		//						console.log(z.latlng);
+		//			 });
+		//		
+		//		var center = map.getCenter();
+		//		console.log(center.lat, center.lng);
+		//		
+		var zoom = map.getZoom();
+		console.log(zoom);
+		//		
+		//		var bounds = map.getBounds();
+		//		console.log(bounds);
+
+		//		var bounds = map.getBounds();
+		//		console.log(bounds);
+		//		
+		//		var bottomLeft = bounds.getSouthWest();
+		//		
+		//		console.log(bottomLeft.lat, bottomLeft.lng);
+		//		
+		//		var otherCity = L.latLng(38.1489,-96.5125);
+		//		var distance = mapCenter.distanceTo(otherCity);
+		//		console.log(distance); // will output distance between cities in meters
+	</script>
+
 </body>
 
 </html>
