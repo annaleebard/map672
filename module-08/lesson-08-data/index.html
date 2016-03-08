@@ -10,7 +10,7 @@
 
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
 	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-
+	<script src="power-plants.js"></script>
 	<style>
 		body {
 			margin: 0;
@@ -67,107 +67,64 @@
 	</footer>
 
 	<script>
-		
-		var map =L.map( 'map', {
-			center: [59,25],
-			zoom:6
+		var map = L.map('map', {
+			center: [33, -82],
+			zoom: 5
 		})
-		var tiles = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}', {
-	attribution: 'Tiles &copy; Esri &mdash; Source: USGS, Esri, TANA, DeLorme, and NPS',
-	maxZoom: 13
-});
-		
+		var tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+			subdomains: 'abcd',
+			maxZoom: 19
+		});
+		tiles.addTo(map);
+
 		map.addLayer(tiles);
-		
-var places = {
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "Tallinn",
-        "size": 159
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          24.7357177734375,
-          59.43390314475794
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "Haapsalu",
-        "size": 11
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          23.543701171875,
-          58.945758027716465
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "Parnu",
-        "size": 32
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          24.510498046875,
-          58.38011855064708
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "Tartu",
-        "size": 39
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          26.728363037109375,
-          58.37147760096145
-        ]
-      }
-    }
-  ]
-};
-//		
-//		var placesLeaflet = L.geoJson(places).addTo(map);
-//		
-//		console.log(places);
-//		console.log(placesLeaflet);
-		
-		
-		
-		var placesLeaflet = L.geoJson(places, {
-    		pointToLayer : function(feature, latlng) {
-				console.log(feature);
-				return L.circle(latlng, feature.properties.size*100);
+		console.log(plants);
+
+		L.geoJson(plants, {
+			pointToLayer: function (feature, latlng) {
+				return L.circleMarker(latlng, {
+					color: 'orange',
+					weight: 1,
+					fillColor: 'red',
+					fillOpacity: .8,
+					radius: 5
+				});
+			},
+			//    filter: function(feature, layer) {
+			//        if(feature.properties.fuel_source.Hydro){
+			//            return feature;   
+			//        }
+			//    }
+			//			filter : function(feature, layer) {
+			//    if(feature.properties.capacity_mw > 500){
+			//        return feature;   
+			//    }
+			//}
+			filter: function (feature, layer) {
+				if (feature.geometry.coordinates[1] < 38 &&
+					feature.geometry.coordinates[0] > -93) {
+					return feature;//filter all except southeast quadrant
+				}
 			}
 		}).addTo(map);
-		 
-		
+
+
+		//		
+		//		var placesLeaflet = L.geoJson(places).addTo(map);
+		//		
+		//		console.log(places);
+		//		console.log(placesLeaflet);
+
+
+
+		//		var placesLeaflet = L.geoJson(places, {
+		//    		pointToLayer : function(feature, latlng) {
+		//				console.log(feature);
+		//				return L.circle(latlng, feature.properties.size*100);
+		//			}
+		//		}).addTo(map);
+		//
 	</script>
 
 </body>
