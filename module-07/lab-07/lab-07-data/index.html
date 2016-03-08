@@ -89,10 +89,11 @@
     var redIguana = L.latLng(40.7718,-111.9124); //creates object representing a geographical point and stores as variable 'redIguana
 		console.log(redIguana);
 		
-		L.marker(redIguana, {
-			opacity: .5,
-			title: "Red Iguana",
-		}).addTo(map);
+	var marker = L.marker(redIguana, {
+				opacity: .5,
+				title: "Red Iguana",
+			}).addTo(map)
+			.bindPopup(L.popup());
         
     map.on('click', function(e){
         var clickLocation = (e.latlng); //stores click event as
@@ -113,10 +114,17 @@
 		
 		var iguanaCornerDistance = southWestCorner.distanceTo(redIguana);
 		console.log(iguanaCornerDistance);
+		
+		marker.getPopup().setContent("meters from delicious mexican food: " + iguanaClickDistance);
+		
+		marker.openPopup();
+		
+		L.marker(clickLocation).addTo(map)
+			.bindPopup("meters from delicious mexican food: " + iguanaClickDistance).openPopup();
     });
         
 		
-    </script>
+    </script> 
     
 </body>
 
