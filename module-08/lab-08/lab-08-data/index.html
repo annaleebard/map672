@@ -87,36 +87,70 @@
 
 		L.geoJson(plants, {
 			pointToLayer: function (feature, latlng) {
-				
+
 				return L.circleMarker(latlng, {
 					color: 'darkgrey',
 					weight: 2,
 					fillColor: 'grey',
 					fillOpacity: .8,
 					radius: getRadius(feature.properties.capacity_mw)
-					
+
 				});
 			},
-			filter: function(feature,layer) {
-			if (feature.properties.fuel_source.Coal){
-				return feature;
+			filter: function (feature, layer) {
+				if (feature.properties.fuel_source.Coal && feature.properties.capacity_mw > 200) {
+					return feature;
 				}
 			},
 			onEachFeature: function (feature, layer) {
-				console.log(layer);
-				layer.bindPopup("<b>Name: </b>" + feature.properties.plant_name +"<br><b>Capacity: </b>" + feature.properties.capacity_mw.toLocaleString()+ " megawatts"),
-				layer.on('mouseover', function () {
-					layer.setStyle({
-						fillColor: 'yellow'
+				//console.log(layer);
+				layer.bindPopup("<b>Name: </b>" + feature.properties.plant_name + "<br><b>Capacity: </b>" + feature.properties.capacity_mw.toLocaleString() + " megawatts"),
+					layer.on('mouseover', function () {
+						layer.setStyle({
+							fillColor: 'yellow'
+						});
 					});
-				});
 				layer.on('mouseout', function () {
 					layer.setStyle({
 						fillColor: 'grey'
 					});
 				});
 			}
-			
+
+		}).addTo(map);
+		//--------------hydro--------------------------
+		L.geoJson(plants, {
+			pointToLayer: function (feature, latlng) {
+
+				return L.circleMarker(latlng, {
+					color: 'blue',
+					weight: 2,
+					fillColor: "blue",
+					fillOpacity: .8,
+					radius: getRadius(feature.properties.capacity_mw)
+
+				});
+			},
+			filter: function (feature, layer) {
+				if (feature.properties.fuel_source.Hydro && feature.properties.capacity_mw > 200) {
+					return feature;
+				}
+			},
+			onEachFeature: function (feature, layer) {
+
+				layer.bindPopup("<b>Name: </b>" + feature.properties.plant_name + "<br><b>Capacity: </b>" + feature.properties.capacity_mw.toLocaleString() + " megawatts"),
+					layer.on('mouseover', function () {
+						layer.setStyle({
+							fillColor: 'yellow'
+						});
+					});
+				layer.on('mouseout', function () {
+					layer.setStyle({
+						fillColor: 'blue'
+					});
+				});
+			}
+
 		}).addTo(map);
 
 		function getRadius(area) {

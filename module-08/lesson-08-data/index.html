@@ -55,15 +55,16 @@
 
 <body>
 	<header>
-		<h1>Power Generation</h1>
-		<h2>by Energy Source</h2>
+		<h1>US Power Generation</h1>
+		<h2>South East</h2>
 	</header>
 
 	<div id='map'></div>
 
 	<footer>
 		<p>Map authored by Anna Lee Bard</p>
-		<p>Additional information about the data and map goes here.</p>
+		<p>Data Source: provided by instructor for educational purposes</p>
+		<p>Visualization of power plants in the Southeastern states.</p>
 	</footer>
 
 	<script>
@@ -91,25 +92,25 @@
 					radius: 5
 				});
 			},
-			//    filter: function(feature, layer) {
-			//        if(feature.properties.fuel_source.Hydro){
-			//            return feature;   
-			//        }
-			//    }
-			//			filter : function(feature, layer) {
-			//    if(feature.properties.capacity_mw > 500){
-			//        return feature;   
-			//    }
-			//}
+
 			filter: function (feature, layer) {
 				if (feature.geometry.coordinates[1] < 38 &&
 					feature.geometry.coordinates[0] > -93) {
-					return feature;//filter all except southeast quadrant
+					return feature; //filter all except southeast quadrant
 				}
 			}
 		}).addTo(map);
 
-
+		//    filter: function(feature, layer) {
+		//        if(feature.properties.fuel_source.Hydro){
+		//            return feature;   
+		//        }
+		//    }
+		//			filter : function(feature, layer) {
+		//    if(feature.properties.capacity_mw > 500){
+		//        return feature;   
+		//    }
+		//}
 		//		
 		//		var placesLeaflet = L.geoJson(places).addTo(map);
 		//		
