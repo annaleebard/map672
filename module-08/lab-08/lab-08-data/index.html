@@ -85,60 +85,87 @@
 			return b.properties.capacity_mw - a.properties.capacity_mw;
 		});
 
-		L.geoJson(plants, {
-			pointToLayer: function (feature, latlng) {
+		//		L.geoJson(plants, {
+		//			pointToLayer: function (feature, latlng) {
+		//
+		//				return L.circleMarker(latlng, {
+		//					color: 'darkgrey',
+		//					weight: 2,
+		//					fillColor: 'grey',
+		//					fillOpacity: .8,
+		//					radius: getRadius(feature.properties.capacity_mw)
+		//
+		//				});
+		//			},
+		//			filter: function (feature, layer) {
+		//				if (feature.properties.fuel_source.Coal && feature.properties.capacity_mw > 200) {
+		//					return feature;
+		//				}
+		//			},
+		//			onEachFeature: function (feature, layer) {
+		//				//console.log(layer);
+		//				var content = "<b>Name: </b>" + feature.properties.plant_name +
+		//					"<br><b>Capacity: </b>" +
+		//					feature.properties.capacity_mw.toLocaleString() + " MW";
+		//				for (var source in feature.properties.fuel_source) {
+		//					content += '<b>' + source + ": </b>" +
+		//						feature.properties.fuel_source[source] + 'MW';
+		//				}
+		//				layer.bindPopup(content),
+		//					layer.on('mouseover', function () {
+		//						layer.setStyle({
+		//							fillColor: 'yellow'
+		//						});
+		//					});
+		//				layer.on('mouseout', function () {
+		//					layer.setStyle({
+		//						fillColor: 'grey'
+		//					});
+		//				});
+		//				
+		//			}
+		//
+		//		}).addTo(map);
 
-				return L.circleMarker(latlng, {
-					color: 'darkgrey',
-					weight: 2,
-					fillColor: 'grey',
-					fillOpacity: .8,
-					radius: getRadius(feature.properties.capacity_mw)
-
-				});
-			},
-			filter: function (feature, layer) {
-				if (feature.properties.fuel_source.Coal && feature.properties.capacity_mw > 200) {
-					return feature;
-				}
-			},
-			onEachFeature: function (feature, layer) {
-				//console.log(layer);
-				layer.bindPopup("<b>Name: </b>" + feature.properties.plant_name + "<br><b>Capacity: </b>" + feature.properties.capacity_mw.toLocaleString() + " megawatts"),
-					layer.on('mouseover', function () {
-						layer.setStyle({
-							fillColor: 'yellow'
-						});
-					});
-				layer.on('mouseout', function () {
-					layer.setStyle({
-						fillColor: 'grey'
-					});
-				});
-			}
-
-		}).addTo(map);
 		//--------------hydro--------------------------
 		L.geoJson(plants, {
 			pointToLayer: function (feature, latlng) {
+				if (feature.properties.fuel_source.Hydro) {
+					return L.circleMarker(latlng, {
+						color: 'blue',
+						weight: 2,
+						fillColor: "blue",
+						fillOpacity: .8,
+						radius: getRadius(feature.properties.capacity_mw)
 
-				return L.circleMarker(latlng, {
-					color: 'blue',
-					weight: 2,
-					fillColor: "blue",
-					fillOpacity: .8,
-					radius: getRadius(feature.properties.capacity_mw)
+					});
+				} else {
+					return L.circleMarker(latlng, {
+						color: 'green',
+						weight: 2,
+						fillColor: "green",
+						fillOpacity: .8,
+						radius: getRadius(feature.properties.capacity_mw)
 
-				});
+					});
+				}
 			},
 			filter: function (feature, layer) {
-				if (feature.properties.fuel_source.Hydro && feature.properties.capacity_mw > 200) {
+				if (feature.properties.capacity_mw > 200) {
 					return feature;
 				}
 			},
 			onEachFeature: function (feature, layer) {
+				var content = "<b>Name: </b>" + feature.properties.plant_name +
+					"<br><b>Capacity: </b>" +
+					feature.properties.capacity_mw.toLocaleString() + " MW<br>";
 
-				layer.bindPopup("<b>Name: </b>" + feature.properties.plant_name + "<br><b>Capacity: </b>" + feature.properties.capacity_mw.toLocaleString() + " megawatts"),
+				for (var source in feature.properties.fuel_source) {
+					content += '<b>' + source + ": </b>" +
+						feature.properties.fuel_source[source] + 'MW';
+				}
+
+				layer.bindPopup(content),
 					layer.on('mouseover', function () {
 						layer.setStyle({
 							fillColor: 'yellow'
@@ -149,6 +176,7 @@
 						fillColor: 'blue'
 					});
 				});
+
 			}
 
 		}).addTo(map);
