@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html data-brackets-id='5050'>
+
+<head data-brackets-id='5051'>
+	<meta data-brackets-id='5052' charset=utf-8 />
+	<title data-brackets-id='5053'>Power Plants</title>
+	<meta data-brackets-id='5054' name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+	<script data-brackets-id='5055' src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+
+	<link data-brackets-id='5056' rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+	<link data-brackets-id='5057' href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+	<style data-brackets-id='5058'>
+		body {
+			margin: 0;
+			padding: 0;
+			background: black;
+			font-family: Lato, sans-serif;
+			color: darkblue;
+		}
+		
+		body1 {
+			color: white
+		}
+		
+		body2{
+			color: white
+		}
+		
+		header {
+			padding: 6px 10%;
+		}
+		
+		h1 {
+			display: inline-block;
+			margin-right: 20px;
+			color: ghostwhite;
+		}
+		
+		h2 {
+			display: inline-block;
+			color: lightslategray;
+		}
+		h3 {
+			color: white
+		}
+		
+		#map {
+			width: 80%;
+			height: 540px;
+			margin: 10px auto;
+		}
+		
+		footer {
+			padding: 6px 10%;
+			width: 80%;
+		}
+		
+		p {
+			font-size: 1em;
+			color: #001323;
+		}
+	</style>
+</head>
+
+<body data-brackets-id='5059'>
+	<header data-brackets-id='5060'>
+		<h1 data-brackets-id='5061'>US POWERHOUSES</h1>
+		<h2 data-brackets-id='5062'>by Fuel Type</h2>
+	</header>
+
+	<div data-brackets-id='5063' id='map'></div>
+
+	<footer data-brackets-id='5064'>
+		<h3 data-brackets-id='5065'>Map authored by Anna Lee Espinosa Bard</h3>
+		
+		<body2 data-brackets-id='5066'>Generation of energy in the US symbolized with proprotional circles. Circles are sized with respect to each plant's annual net generation of power. Hydropower generation symbolized with blue circles. Wind power symbolized with light blue circles. Solar power generation symbolized with yellow circles. User may toggle on or off any of the fuel source layers. The user may click the map to filter to power plants within 500km from the click location.</body2>
+	</footer>
+
+	<script data-brackets-id='5067' src="power-plants.js"></script>
+	<script data-brackets-id='5068'>
+		var map = L.map('map', {
+			center: [36, -94],
+			zoom: 4,
+		});
+
+		var tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+			subdomains: 'abcd',
+			maxZoom: 19
+		});
+
+		tiles.addTo(map);
+
+		function getRadius(val) {
+			var radius = Math.sqrt(val / Math.PI);
+			return radius * .8;
+		};
+
+		var commonStyles = {
+			weight: 1,
+			stroke: 1,
+			fillOpacity: .8
+		}
+
+		var layerInfo = {
+			hydroLayer: {
+				source: "Hydro",
+				color: '#1f78b4'
+			},
+			windLayer: {
+				source: "Wind",
+				color: '#a6cee3'
+			},
+			solarLayer: {
+				source: "Solar",
+				color: '#fff89e'
+			}
+		};
+
+		var radiusCircle = L.circle([0,0], 500000, {
+            fillColor: false,
+            fillOpacity: .2,
+            stroke: false,
+            weight: 2,   
+        }).addTo(map);
+
+		var geoJsonLayers = {};
+
+		for (var layer in layerInfo) {
+			geoJsonLayers[layer] = L.geoJson(plants, {
+				pointToLayer: function (feature, latlng) {
+					return L.circleMarker(latlng, commonStyles);
+				},
+				filter: function (feature) {
+					if (feature.properties.fuel_source[layerInfo[layer].source]) {
+						return feature;
+					}
+				},
+				style: function (feature) {
+					return {
+						color: layerInfo[layer].color,
+						fillColor: layerInfo[layer].color,
+						radius: getRadius(feature.properties.fuel_source[layerInfo[layer].source])
+					}
+				}
+			}).addTo(map);
+		}
+
+
+
+		function getRadius(val) {
+			var radius = Math.sqrt(val / Math.PI);
+			return radius * .8;
+		}
+
+		var sourcesLabels = {
+			"<b style='color:#1f78b4; font-size: 14px; text-shadow: 0px 0px 1px #333;'> Hydro </b>": geoJsonLayers.hydroLayer,
+			"<b style='color:#a6cee3; font-size: 14px; text-shadow: 0px 0px 1px #333;'> Wind </b>": geoJsonLayers.windLayer,
+			"<b style='color:#fff89e; font-size: 14px; text-shadow: 0px 0px 1px #333;'> Solar </b>": geoJsonLayers.solarLayer,
+
+		}
+
+		L.control.layers(null, sourcesLabels, {
+			collapsed: false
+		}).addTo(map);
+
+
+		map.on('click', function(e){
+			for (var layer in geoJsonLayers){
+				
+				geoJsonLayers[layer].eachLayer(function(layer) {
+					var distance = e.latlng.distanceTo(layer.getLatLng())/1000;
+					if (distance > 500) {
+						layer.setStyle({
+							stroke: false,
+							fill: false
+						});
+					}
+					
+					else{
+						layer.setStyle({
+							stroke:true,
+							fill:true
+						});
+						var popupInfo = layer.feature.properties.plant_name
+						
+						var source = layer.feature.properties.fuel_source;
+							for(var fuel in source) {
+								fuel;
+							}
+						layer.bindPopup("<b>Name: </b>"+ popupInfo +"<br><b>Fuel: </b>" +fuel+"<br>This plant is <b>"+distance.toLocaleString()+ "km</b><br> from the click point.");
+					}
+				});
+			}
+		});
+		
+		  
+        
+     map.on('dblclick', function(e){
+           for (var layer in geoJsonLayers){
+  
+                geoJsonLayers[layer].eachLayer(function(layer) {
+                  var distance = e.latlng.distanceTo(layer.getLatLng())/1000;
+                    
+                    if(distance > 200) {
+                    layer.setStyle({
+                        stroke: false,
+                        fill: false
+                    });  
+
+                } 
+                    else {
+                   layer.setStyle({
+                        stroke: true,
+                        fill: true  
+                   });  
+                        
+                    var popupInfo = layer.feature.properties.plant_name
+
+                    var source = layer.feature.properties.fuel_source;
+                        for ( var fuel in source) {
+                          fuel;
+                        }
+                    layer.bindPopup("<b>Name: </b>"+ popupInfo +"<br><b>Fuel: </b>" +fuel+"<br>This plant is <b>"+distance.toLocaleString()+ "km</b><br> from the click point.");
+                    }
+                 });
+              }
+          });
+//       map.on('mousemove', function(e) {
+//            radiusCircle.setStyle({fillColor: "white"}).setLatLng(e.latlng);
+//            for(var l in geoJsonLayers) { 
+//                geoJsonLayers[l].eachLayer(function(layer) {
+//                    var distance = e.latlng.distanceTo(layer.getLatLng())/1000;
+//                    if(distance > 500) {
+//                        layer.setStyle({
+//                            fill: false
+//                        });  
+//                    } else {
+//                       layer.setStyle({
+//                            fill: true  
+//                       });  
+//                       
+//                    }    
+//                });
+//            }
+//        });
+        
+           
+     //disable double click//
+               map.doubleClickZoom.disable();
+		
+		
+			
+	</script>
+
+</body>
+
+</html>
