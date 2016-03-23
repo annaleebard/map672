@@ -166,28 +166,6 @@
 			collapsed: false
 		}).addTo(map);
 
-		map.on('click', function (e) {
-
-			for (var layer in layerInfo) {
-				geoJsonLayers[layer].eachLayer(function (layer) {
-					var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000;
-
-					if (distance > 500) {
-						layer.setStyle({
-							stroke: false,
-							fill: false
-						});
-					} else {
-						layer.setStyle({
-							stroke: true,
-							fill: true
-						});
-						layer.bindPopup("I am <b>" + distance.toLocaleString() +
-							"km</b><br> from the click point.");
-					}
-				});
-			}
-		});
 
 		map.on('click', function(e){
 			for (var layer in geoJsonLayers){
