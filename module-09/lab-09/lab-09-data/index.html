@@ -2,6 +2,8 @@
 <html>
 
 <head>
+
+
 	<meta charset=utf-8 />
 	<title>Power Plants</title>
 	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
@@ -10,21 +12,27 @@
 
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
 	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-
+	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+	<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 	<style>
+		.leaflet-control-layers-expanded {
+            background: black;
+			opacity: .8;
+		
+        }
 		body {
 			margin: 0;
 			padding: 0;
 			background: black;
 			font-family: Lato, sans-serif;
-			color: darkblue;
+			color: black;
 		}
 		
 		body1 {
 			color: white
 		}
 		
-		body2{
+		body2 {
 			color: white
 		}
 		
@@ -42,6 +50,7 @@
 			display: inline-block;
 			color: lightslategray;
 		}
+		
 		h3 {
 			color: white
 		}
@@ -66,7 +75,7 @@
 
 <body>
 	<header>
-		<h1>US POWERHOUSES</h1>
+		<h1>US Power Plants</h1>
 		<h2>by Fuel Type</h2>
 	</header>
 
@@ -74,7 +83,7 @@
 
 	<footer>
 		<h3>Map authored by Anna Lee Espinosa Bard</h3>
-		
+
 		<body2>Generation of energy in the US symbolized with proprotional circles. Circles are sized with respect to each plant's annual net generation of power. Hydropower generation symbolized with blue circles. Wind power symbolized with light blue circles. Solar power generation symbolized with yellow circles. User may toggle on or off any of the fuel source layers. The user may click the map to filter to power plants within 500km from the click location.</body2>
 	</footer>
 
@@ -83,6 +92,7 @@
 		var map = L.map('map', {
 			center: [36, -94],
 			zoom: 4,
+			fullscreenControl: true
 		});
 
 		var tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
@@ -93,10 +103,7 @@
 
 		tiles.addTo(map);
 
-		function getRadius(val) {
-			var radius = Math.sqrt(val / Math.PI);
-			return radius * .8;
-		};
+		
 
 		var commonStyles = {
 			weight: 1,
@@ -119,12 +126,12 @@
 			}
 		};
 
-		var radiusCircle = L.circle([0,0], 500000, {
-            fillColor: false,
-            fillOpacity: .2,
-            stroke: false,
-            weight: 2,   
-        }).addTo(map);
+		var radiusCircle = L.circle([0, 0], 500000, {
+			fillColor: false,
+			fillOpacity: .2,
+			stroke: false,
+			weight: 2,
+		}).addTo(map);
 
 		var geoJsonLayers = {};
 
@@ -152,13 +159,13 @@
 
 		function getRadius(val) {
 			var radius = Math.sqrt(val / Math.PI);
-			return radius * .8;
+			return radius * 1.2;
 		}
 
 		var sourcesLabels = {
-			"<b style='color:#1f78b4; font-size: 14px; text-shadow: 0px 0px 1px #333;'> Hydro </b>": geoJsonLayers.hydroLayer,
-			"<b style='color:#a6cee3; font-size: 14px; text-shadow: 0px 0px 1px #333;'> Wind </b>": geoJsonLayers.windLayer,
-			"<b style='color:#fff89e; font-size: 14px; text-shadow: 0px 0px 1px #333;'> Solar </b>": geoJsonLayers.solarLayer,
+			"<b style='color:#1f78b4; font-size: 16px;'> Hydro </b>": geoJsonLayers.hydroLayer,
+			"<b style='color:#a6cee3; font-size: 16px;'> Wind </b>": geoJsonLayers.windLayer,
+			"<b style='color:#fff89e; font-size: 16px;'> Solar </b>": geoJsonLayers.solarLayer,
 
 		}
 
@@ -167,92 +174,86 @@
 		}).addTo(map);
 
 
-		map.on('click', function(e){
-			for (var layer in geoJsonLayers){
-				
-				geoJsonLayers[layer].eachLayer(function(layer) {
-					var distance = e.latlng.distanceTo(layer.getLatLng())/1000;
+		map.on('click', function (e) {
+			for (var layer in geoJsonLayers) {
+
+				geoJsonLayers[layer].eachLayer(function (layer) {
+					var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000;
 					if (distance > 500) {
 						layer.setStyle({
 							stroke: false,
 							fill: false
 						});
-					}
-					
-					else{
+					} else {
 						layer.setStyle({
-							stroke:true,
-							fill:true
+							stroke: true,
+							fill: true
 						});
 						var popupInfo = layer.feature.properties.plant_name
-						
+
 						var source = layer.feature.properties.fuel_source;
-							for(var fuel in source) {
-								fuel;
-							}
-						layer.bindPopup("<b>Name: </b>"+ popupInfo +"<br><b>Fuel: </b>" +fuel+"<br>This plant is <b>"+distance.toLocaleString()+ "km</b><br> from the click point.");
+						for (var fuel in source) {
+							fuel;
+						}
+						layer.bindPopup("<b>Name: </b>" + popupInfo + "<br><b>Fuel: </b>" + fuel + "<br>This plant is <b>" + distance.toLocaleString() + "km</b><br> from the click point.");
 					}
 				});
 			}
 		});
-		
-		  
-        
-     map.on('dblclick', function(e){
-           for (var layer in geoJsonLayers){
-  
-                geoJsonLayers[layer].eachLayer(function(layer) {
-                  var distance = e.latlng.distanceTo(layer.getLatLng())/1000;
-                    
-                    if(distance > 200) {
-                    layer.setStyle({
-                        stroke: false,
-                        fill: false
-                    });  
 
-                } 
-                    else {
-                   layer.setStyle({
-                        stroke: true,
-                        fill: true  
-                   });  
-                        
-                    var popupInfo = layer.feature.properties.plant_name
 
-                    var source = layer.feature.properties.fuel_source;
-                        for ( var fuel in source) {
-                          fuel;
-                        }
-                    layer.bindPopup("<b>Name: </b>"+ popupInfo +"<br><b>Fuel: </b>" +fuel+"<br>This plant is <b>"+distance.toLocaleString()+ "km</b><br> from the click point.");
-                    }
-                 });
-              }
-          });
-//       map.on('mousemove', function(e) {
-//            radiusCircle.setStyle({fillColor: "white"}).setLatLng(e.latlng);
-//            for(var l in geoJsonLayers) { 
-//                geoJsonLayers[l].eachLayer(function(layer) {
-//                    var distance = e.latlng.distanceTo(layer.getLatLng())/1000;
-//                    if(distance > 500) {
-//                        layer.setStyle({
-//                            fill: false
-//                        });  
-//                    } else {
-//                       layer.setStyle({
-//                            fill: true  
-//                       });  
-//                       
-//                    }    
-//                });
-//            }
-//        });
-        
-           
-     //disable double click//
-               map.doubleClickZoom.disable();
-		
-		
-			
+
+		map.on('dblclick', function (e) {
+			for (var layer in geoJsonLayers) {
+
+				geoJsonLayers[layer].eachLayer(function (layer) {
+					var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000;
+
+					if (distance > 200) {
+						layer.setStyle({
+							stroke: false,
+							fill: false
+						});
+
+					} else {
+						layer.setStyle({
+							stroke: true,
+							fill: true
+						});
+
+						var popupInfo = layer.feature.properties.plant_name
+
+						var source = layer.feature.properties.fuel_source;
+						for (var fuel in source) {
+							fuel;
+						}
+						layer.bindPopup("<b>Name: </b>" + popupInfo + "<br><b>Fuel: </b>" + fuel + "<br>This plant is <b>" + distance.toLocaleString() + "km</b><br> from the click point.");
+					}
+				});
+			}
+		});
+		//       map.on('mousemove', function(e) {
+		//            radiusCircle.setStyle({fillColor: "white"}).setLatLng(e.latlng);
+		//            for(var l in geoJsonLayers) { 
+		//                geoJsonLayers[l].eachLayer(function(layer) {
+		//                    var distance = e.latlng.distanceTo(layer.getLatLng())/1000;
+		//                    if(distance > 500) {
+		//                        layer.setStyle({
+		//                            fill: false
+		//                        });  
+		//                    } else {
+		//                       layer.setStyle({
+		//                            fill: true  
+		//                       });  
+		//                       
+		//                    }    
+		//                });
+		//            }
+		//        });
+
+
+		//disable double click//
+		map.doubleClickZoom.disable();
 	</script>
 
 </body>
